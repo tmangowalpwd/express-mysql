@@ -16,9 +16,10 @@ app.get("/", (req, res) => {
   res.send("<h1>Welcome to jcwd2002 ecommerce API</h1>")
 })
 
-const { productRoutes } = require("./routes")
+const { productRoutes, titanicRoutes } = require("./routes")
 
 app.use("/products", productRoutes)
+app.use("/titanic", titanicRoutes)
 
 app.listen(PORT, () => {
   console.log("Listening in port", PORT)

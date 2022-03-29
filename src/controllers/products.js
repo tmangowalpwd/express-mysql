@@ -20,19 +20,14 @@ const productControllers = {
   },
   createNewProduct: (req, res) => {
     try {
-      const { product_name, price, stock, category } = req.body
-
-      let sqlQuery = `
-        INSERT INTO products VALUES 
-        (0, "${product_name}", ${price}, "${category}", ${stock});
-      `
+      const { product_name, price, stock, category, category_id } = req.body
 
       let replacementQuery = `
         INSERT INTO products VALUES 
-        (0, ?, ?, ?, ?);
+        (0, ?, ?, ?, ?, ?);
       `
 
-      let replacements = [product_name, price, category, stock]
+      let replacements = [product_name, price, category, stock, category_id]
 
       db.query(replacementQuery, replacements, (err, result) => {
         if (err) throw err
@@ -42,15 +37,6 @@ const productControllers = {
           result
         })
       })
-
-      // db.query(sqlQuery, (err, result) => {
-      //   if (err) throw err
-
-      //   res.status(201).json({
-      //     message: "Product created",
-      //     result
-      //   })
-      // })
     } catch (err) {
       console.log(err)
       res.status(500).json({
